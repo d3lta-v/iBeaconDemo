@@ -13,6 +13,7 @@
 		22ECF1CE19976AFE00E0B30F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 22ECF1CC19976AFE00E0B30F /* Main.storyboard */; };
 		22ECF1D019976AFE00E0B30F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22ECF1CF19976AFE00E0B30F /* Images.xcassets */; };
 		22ECF1DC19976AFE00E0B30F /* iBeaconDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 22ECF1DB19976AFE00E0B30F /* iBeaconDemoTests.m */; };
+		22ECF1E619976E8700E0B30F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22ECF1E519976E8700E0B30F /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		22ECF1D519976AFE00E0B30F /* iBeaconDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iBeaconDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22ECF1DA19976AFE00E0B30F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22ECF1DB19976AFE00E0B30F /* iBeaconDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = iBeaconDemoTests.m; sourceTree = "<group>"; };
+		22ECF1E519976E8700E0B30F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22ECF1E619976E8700E0B30F /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +64,7 @@
 		22ECF1B619976AFE00E0B30F = {
 			isa = PBXGroup;
 			children = (
+				22ECF1E519976E8700E0B30F /* CoreLocation.framework */,
 				22ECF1C119976AFE00E0B30F /* iBeaconDemo */,
 				22ECF1D819976AFE00E0B30F /* iBeaconDemoTests */,
 				22ECF1C019976AFE00E0B30F /* Products */,
@@ -165,6 +169,11 @@
 				TargetAttributes = {
 					22ECF1BE19976AFE00E0B30F = {
 						CreatedOnToolsVersion = 6.0;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					22ECF1D419976AFE00E0B30F = {
 						CreatedOnToolsVersion = 6.0;
@@ -402,6 +411,7 @@
 				22ECF1E119976AFE00E0B30F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		22ECF1E219976AFE00E0B30F /* Build configuration list for PBXNativeTarget "iBeaconDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -410,6 +420,7 @@
 				22ECF1E419976AFE00E0B30F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
