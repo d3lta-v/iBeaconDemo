@@ -10,8 +10,7 @@
 
 @interface ViewController ()
 {
-    NSInteger *firstProximity;
-    
+    BOOL bluetoothEnabled;
 }
 
 @end
@@ -22,15 +21,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    // Check if bluetooth is on or off
+    [self startBluetoothStatusMonitoring];
+    
+    // Initialize the location manager
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     [self.locationManager requestAlwaysAuthorization];
-    
     NSUUID *proximityUUID = [[NSUUID alloc] initWithUUIDString:@"B9407F30-F5F8-466E-AFF9-25556B57FE6D"];
-    
     self.myBeaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:proximityUUID identifier:@"Estimote Region"];
     
+    // Start monitoring
     [self.locationManager startMonitoringForRegion:self.myBeaconRegion];
+    
+    if (!bluetoothEnabled) {
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"Bluetooth is off" message:@"Please turn on your Bluetooth to use this app." delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+        [alert show];
+    }
 }
 
 - (void) locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
@@ -57,7 +64,7 @@
 - (void) locationManager:(CLLocationManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(CLBeaconRegion *)region
 {
     if ([beacons count] > 0) {
-        // Handle your found beacons here
+        // Detect amount of beacons in range
         if ([beacons count]==1)
             self.statusLabel.text = @"Beacon is in range";
         else if ([beacons count]==2)
@@ -93,15 +100,12 @@
                 case 1:
                     self.proximityLabel.text = @"Immediate";
                     break;
-                    
                 case 2:
                     self.proximityLabel.text = @"Near";
                     break;
-                    
                 case 3:
                     self.proximityLabel.text = @"Far";
                     break;
-                    
                 default:
                     self.proximityLabel.text = @"Unknown";
                     break;
@@ -118,6 +122,24 @@
         self.minorLabel.text = @"NULL";
         self.inferredLocationLabel.text = @"NULL";
         self.proximityLabel.text = @"No signal";
+    }
+}
+
+- (void)startBluetoothStatusMonitoring {
+    // Horrible formatting, but nicer for blog-width!
+    self.bluetoothManager = [[CBCentralManager alloc]
+                             initWithDelegate:self
+                             queue:dispatch_get_main_queue()
+                             options:@{CBCentralManagerOptionShowPowerAlertKey: @(NO)}];
+}
+
+- (void)centralManagerDidUpdateState:(CBCentralManager *)central {
+    
+    if ([central state] == CBCentralManagerStatePoweredOn) {
+        bluetoothEnabled = YES;
+    }
+    else {
+        bluetoothEnabled = NO;
     }
 }
 
