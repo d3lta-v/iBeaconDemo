@@ -72,7 +72,7 @@
             self.uuidLabel.text = @"NULL";
             self.majorLabel.text = @"NULL";
             self.minorLabel.text = @"NULL";
-            self.proximityLabel.text = @"Out of range";
+            self.proximityLabel.text = @"Unknown";
         } else {
             CLBeacon *foundBeacon = [beacons firstObject];
             
