@@ -58,11 +58,16 @@
 {
     if ([beacons count] > 0) {
         // Handle your found beacons here
-        if ([beacons count] > 1) {
-            self.statusLabel.text = @"2 or more beacons are in range";
-        } else {
-            self.statusLabel.text = @"Beacons are in range";
-        }
+        if ([beacons count]==1)
+            self.statusLabel.text = @"Beacon is in range";
+        else if ([beacons count]==2)
+            self.statusLabel.text = @"2 beacons are in range";
+        else if ([beacons count]==3)
+            self.statusLabel.text = @"3 beacons are in range";
+        else if ([beacons count]==4)
+            self.statusLabel.text = @"4 beacons are in range";
+        else
+            self.statusLabel.text = @"Several beacons are in range";
         
         // Get the nearest found beacon
         beacons = [beacons filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"proximity != %d", CLProximityUnknown]];
@@ -72,7 +77,8 @@
             self.uuidLabel.text = @"NULL";
             self.majorLabel.text = @"NULL";
             self.minorLabel.text = @"NULL";
-            self.proximityLabel.text = @"Unknown";
+            self.inferredLocationLabel.text = @"NULL";
+            self.proximityLabel.text = @"Bad signal";
         } else {
             CLBeacon *foundBeacon = [beacons firstObject];
             
@@ -110,7 +116,8 @@
         self.uuidLabel.text = @"NULL";
         self.majorLabel.text = @"NULL";
         self.minorLabel.text = @"NULL";
-        self.proximityLabel.text = @"Out of range";
+        self.inferredLocationLabel.text = @"NULL";
+        self.proximityLabel.text = @"No signal";
     }
 }
 
